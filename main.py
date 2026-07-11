@@ -9,14 +9,23 @@ from telegram.ext import (
 
 from config import BOT_TOKEN
 from parser import calculate_water
-from database import create_table, save_record
-
+from database import create_table, save_record, get_today_records
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
+from telegram.ext import CommandHandler
 
+
+async def today_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    bottles, money = get_today_records()
+
+    await update.message.reply_text(
+        f"📅 ဒီနေ့စာရင်း\n\n"
+        f"🧴 ဘူးစုစုပေါင်း = {bottles} ဘူး\n"
+        f"💵 ငွေစုစုပေါင်း = {money:,} ကျပ်"
+    )
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
@@ -60,7 +69,9 @@ def main():
             handle_message
         )
     )
-
+app.add_handler(
+    CommandHandler("today", today_command)
+)
     print("စာရင်းကိုင် Bot Running...")
 
     app.run_polling()
