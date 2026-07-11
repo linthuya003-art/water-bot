@@ -43,3 +43,26 @@ def save_record(user, bottles, money):
 
     conn.commit()
     conn.close()
+def get_today_records():
+    conn = sqlite3.connect(DB_NAME)
+    cur = conn.cursor()
+
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    cur.execute(
+        """
+        SELECT SUM(bottles), SUM(money)
+        FROM records
+        WHERE date = ?
+        """,
+        (today,)
+    )
+
+    result = cur.fetchone()
+
+    conn.close()
+
+    if result[0] is None:
+        return 0, 0
+
+    return result[0], result[1]
