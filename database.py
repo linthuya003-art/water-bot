@@ -66,3 +66,20 @@ def get_today_records():
         return 0, 0
 
     return result[0], result[1]
+def get_all_records():
+    conn = sqlite3.connect(DB_NAME)
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT user, bottles, money, date
+        FROM records
+        ORDER BY id DESC
+        """
+    )
+
+    rows = cur.fetchall()
+
+    conn.close()
+
+    return rows
