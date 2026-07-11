@@ -9,7 +9,7 @@ from telegram.ext import (
 
 from config import BOT_TOKEN
 from parser import calculate_water
-
+from database import create_table, save_record
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -41,11 +41,17 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"👥 ဖောက်သည် = {result['customers']} ဦး\n"
         "━━━━━━━━━━━━"
     )
-
+save_record(
+    update.message.from_user.first_name,
+    result["total_bottles"],
+    result["total_money"]
+)
     await update.message.reply_text(reply)
 
 
 def main():
+    create_table()
+
     app = Application.builder().token(BOT_TOKEN).build()
 
     app.add_handler(
