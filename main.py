@@ -9,7 +9,7 @@ from telegram.ext import (
 
 from config import BOT_TOKEN
 from parser import calculate_water
-from database import create_table, save_record, get_today_records
+from database import create_table, save_record, get_today_records, get_all_records
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
