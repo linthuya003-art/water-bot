@@ -18,7 +18,31 @@ logging.basicConfig(
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    pass
+    if not update.message:
+        return
+
+    text = update.message.text
+
+    result = calculate_water(text)
+
+    if result["total_bottles"] == 0:
+        return
+
+    prices = result["prices"]
+
+    reply = (
+        "📋 စာရင်းချုပ်\n\n"
+        f"💰 1000 = {prices[1000]} ဘူး = {prices[1000] * 1000:,} ကျပ်\n"
+        f"💰 1100 = {prices[1100]} ဘူး = {prices[1100] * 1100:,} ကျပ်\n"
+        f"💰 1300 = {prices[1300]} ဘူး = {prices[1300] * 1300:,} ကျပ်\n\n"
+        "━━━━━━━━━━━━\n"
+        f"🧴 ရေဘူးစုစုပေါင်း = {result['total_bottles']} ဘူး\n"
+        f"💵 စုစုပေါင်းငွေ = {result['total_money']:,} ကျပ်\n"
+        f"👥 ဖောက်သည် = {result['customers']} ဦး\n"
+        "━━━━━━━━━━━━"
+    )
+
+    await update.message.reply_text(reply)
 
 
 def main():
