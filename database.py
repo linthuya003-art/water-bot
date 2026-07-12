@@ -64,7 +64,7 @@ def init_db():
                 entry_date DATE NOT NULL,
                 entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 is_deleted INTEGER NOT NULL DEFAULT 0
-
+            );
             -- Admin users table
             CREATE TABLE IF NOT EXISTS admins (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
