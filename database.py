@@ -475,53 +475,5 @@ def get_export_data(target_date: Optional[date] = None, month_year: Optional[tup
 #  Initialize on import
 # ─────────────────────────────────────────────────────────────────────
 
+# Initialize Database
 init_db()
-            user,
-            bottles,
-            money,
-            datetime.now().strftime("%Y-%m-%d")
-        )
-    )
-
-    conn.commit()
-    conn.close()
-def get_today_records():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    today = datetime.now().strftime("%Y-%m-%d")
-
-    cur.execute(
-        """
-        SELECT SUM(bottles), SUM(money)
-        FROM records
-        WHERE date = ?
-        """,
-        (today,)
-    )
-
-    result = cur.fetchone()
-
-    conn.close()
-
-    if result[0] is None:
-        return 0, 0
-
-    return result[0], result[1]
-def get_all_records():
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    cur.execute(
-        """
-        SELECT user, bottles, money, date
-        FROM records
-        ORDER BY id DESC
-        """
-    )
-
-    rows = cur.fetchall()
-
-    conn.close()
-
-    return rows
