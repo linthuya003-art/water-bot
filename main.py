@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import traceback
+import asyncio
 from datetime import date, datetime
 from dotenv import load_dotenv
 
@@ -38,9 +39,9 @@ ADMIN_IDS = [
     if x.strip().isdigit()
 ]
 
-KYOYEB_PORT = int(os.environ.get("PORT", "8080"))
-KYOYEB_DOMAIN = os.environ.get("KOYEB_APP_URL", "").rstrip("/")
-WEBHOOK_URL = f"{KYOYEB_DOMAIN}/webhook" if KOYEB_DOMAIN else None
+KOYEB_PORT = int(os.environ.get("PORT", "8080"))
+KOYEB_DOMAIN = os.environ.get("KOYEB_APP_URL", "").rstrip("/")
+WEBHOOK_URL = f"{KOYEB_DOMAIN}/webhook" if KOYEB_DOMAIN else None
 
 USE_WEBHOOK = os.environ.get("USE_WEBHOOK", "false").lower() == "true"
 
@@ -62,7 +63,16 @@ from telegram.ext import (
 )
 
 from parser import parse_entry, parse_batch, format_reply, format_reply_summary
-from database import is_admin, add_admin, remove_admin, get_all_admins, delete_entry, get_entries_by_date
+from database import (
+    is_admin,
+    add_admin,
+    remove_admin,
+    get_all_admins,
+    delete_entry,
+    get_entries_by_date,
+    insert_entry,
+    insert_batch_entries,
+)
 from report import format_daily_report_text, format_monthly_report_text, generate_excel
 
 
@@ -546,7 +556,7 @@ async def run_webhook(application: Application):
 
     await application.updater.start_webhook(
         listen="0.0.0.0",
-        port=KYOYEB_PORT,
+        port=KOYEB_PORT,
         url_path=BOT_TOKEN,
         webhook_url=WEBHOOK_URL,
     )
