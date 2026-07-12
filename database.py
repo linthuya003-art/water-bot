@@ -65,8 +65,7 @@ def init_db():
                 entry_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 is_deleted INTEGER NOT NULL DEFAULT 0,
 
-                UNIQUE(user_telegram_id, customer_name, bottles, money, entry_date, entry_time)
-            );
+                UNIQUE(user_telegram_id, customer_name, bottles, money, entry_date);
             -- Admin users table
             CREATE TABLE IF NOT EXISTS admins (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
