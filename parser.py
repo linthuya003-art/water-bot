@@ -113,15 +113,16 @@ def parse_batch(text: str) -> list[dict]:
 
 def _determine_tier(money: int) -> str:
     """
-    ငွေပမာဏပေါ်မူတည်ပြီး ခွဲတွက် tier သတ်မှတ်
-    1000, 1100, 1300 ကို check
+    ငွေပမာဏအတိုင်း ခွဲတွက် tier သတ်မှတ်
     """
-    if money <= 1000:
+    if money == 1000:
         return "1000"
-    elif money <= 1100:
+    elif money == 1100:
         return "1100"
-    else:
+    elif money == 1300:
         return "1300"
+    else:
+        return str(money)
 
 
 def format_reply(entry: dict, user_name: str = "") -> str:
