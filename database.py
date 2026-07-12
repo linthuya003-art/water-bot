@@ -10,8 +10,12 @@ logger = logging.getLogger("gift_hub.database")
 # ─────────────────────────────────────────────────────────────────────
 #  Database Configuration
 # ─────────────────────────────────────────────────────────────────────
-DB_PATH = os.environ.get("DB_PATH", "gift_hub.db")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+DB_PATH = os.environ.get(
+    "DB_PATH",
+    os.path.join(BASE_DIR, "gift_hub.db")
+)
 
 @contextmanager
 def get_connection():
