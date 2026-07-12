@@ -26,7 +26,7 @@ logger = logging.getLogger("gift_hub.parser")
 
 
 # နာမည် pattern — Myanmar characters, English, digits, spaces, dots, commas
-NAME_PATTERN = r'([\u1000-\u109FA-Za-z0-9\s\.\,\-\_]+?)'
+NAME_PATTERN = r'([\u1000-\u109F\uAA60-\uAA7FA-Za-z0-9\s\.\,\-\_]+?)'
 BOTTLES_PATTERN = r'(\d+)'
 MONEY_PATTERN = r'\((\d+)\)'
 
