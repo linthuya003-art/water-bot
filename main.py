@@ -146,7 +146,6 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await send_reply(update, help_text, reply_to=False)
 
-း
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     /help — အသုံးပြုနည်း ပြ
