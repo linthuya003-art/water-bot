@@ -559,7 +559,7 @@ async def run_webhook(application: Application):
         webhook_url=WEBHOOK_URL,
     )
 
-    logger.info("Webhook server running on port %d", KYOYEB_PORT)
+    logger.info("Webhook server running on port %d", KOYEB_PORT)
     await application.start()
 
     import asyncio
