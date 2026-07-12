@@ -146,7 +146,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await send_reply(update, help_text, reply_to=False)
 
-
+း
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     /help — အသုံးပြုနည်း ပြ
@@ -405,8 +405,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ─────────────────────────────────────────────────────────────────────
 #  Database Helper Wrappers (with logging)
 # ─────────────────────────────────────────────────────────────────────
-
-from database import insert_entry, insert_batch_entries
 
 
 def insert_entry_to_db(user_id: int, user_name: str, entry: dict) -> int:
