@@ -586,7 +586,6 @@ if __name__ == "__main__":
     # Run mode select
     if USE_WEBHOOK:
         logger.info("Webhook mode selected")
-        asyncio = __import__("asyncio")
         asyncio.run(run_webhook(application))
     else:
         logger.info("Polling mode selected")
