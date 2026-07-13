@@ -159,25 +159,32 @@ def format_reply_summary(entries: list[dict], user_name: str = "") -> str:
     total_money = sum(e["money"] for e in entries)
     customer_count = len(entries)
 
-    # Tier-wise summary
-    tier_counts = {"1000": 0, "1100": 0, "1300": 0}
+        # Tier-wise bottle summary
+    tier_bottles = {"1000": 0, "1100": 0, "1300": 0}
     for e in entries:
-        tier_counts[e["tier"]] += 1
+        tier_bottles[e["tier"]] += e["bottles"]
 
     sender_info = f" ({user_name})" if user_name else ""
 
     reply = f"✅ <b>စာရင်း {customer_count} ယောက် ထည့်ပြီးပါပြီ {sender_info}</b>\n\n"
 
     reply += f"👥 Customer စုစုပေါင်း: <b>{customer_count} ယောက်</b>\n"
-    reply += f"💧 ရေဘူး စုစုပေါင်း: <b>{total_bottles:,} ဘူး</b>\n"
     reply += f"💰 ငွေ စုစုပေါင်း: <b>{total_money:,} Ks</b>\n\n"
 
-    reply += "📊 <b>ခွဲတွက် အရေအတွက်</b>\n"
-    reply += f"  1000: <b>{tier_counts['1000']} ယောက်</b>\n"
-    reply += f"  1100: <b>{tier_counts['1100']} ယောက်</b>\n"
-    reply += f"  1300: <b>{tier_counts['1300']} ယောက်</b>\n\n"
+    reply += "📊 <b>ဘူးအရေအတွက်</b>\n"
 
-    reply += "စာရင်းထဲ သိမ်းပြီးပါပြီ! ✅"
+    if tier_bottles["1000"] > 0:
+        reply += f"1000 Ks : <b>{tier_bottles['1000']} ဘူး</b>\n"
+
+    if tier_bottles["1100"] > 0:
+        reply += f"1100 Ks : <b>{tier_bottles['1100']} ဘူး</b>\n"
+
+    if tier_bottles["1300"] > 0:
+        reply += f"1300 Ks : <b>{tier_bottles['1300']} ဘူး</b>\n"
+
+    reply += f"\n📦 <b>စုစုပေါင်း ဘူးအရေအတွက်: {total_bottles:,} ဘူး</b>\n\n"
+    reply += "✅ <b>စာရင်းထဲ သိမ်းပြီးပါပြီ!</b>\n"
+    reply += "🙏 <b>ကျေးဇူးတင်ပါတယ်။</b>"
 
     return reply
 
